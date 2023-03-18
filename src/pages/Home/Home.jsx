@@ -22,7 +22,7 @@ export default function Home() {
     <MoviesListHome>
       {movies.map(movie => (
         <MoviesItemHome key={movie.id}>
-          <Link to={`movies/:${movie.id}`}>
+          <Link to={`:${movie.id}`}>
             <h2 style={{ fontSize: 10 }}>{movie.name || movie.title}</h2>
           </Link>
         </MoviesItemHome>

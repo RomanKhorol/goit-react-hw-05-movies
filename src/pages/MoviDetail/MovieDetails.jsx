@@ -15,10 +15,10 @@ export default function MovieDetails() {
       <h3>Additional information</h3>
       <ul>
         <li>
-          <Link to="/movies/:movieId/cast">Cast</Link>
+          <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="/movies/:movieId/reviews">Review</Link>
+          <Link to="reviews">Review</Link>
         </li>
       </ul>
       <Outlet />
