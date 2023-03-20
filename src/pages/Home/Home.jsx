@@ -5,6 +5,7 @@ import { MoviesListHome } from './Home.slyled';
 import { MoviesItemHome } from './Home.slyled';
 export default function Home() {
   const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     async function getMoviesArray() {
       try {
@@ -17,12 +18,12 @@ export default function Home() {
     }
     getMoviesArray();
   }, []);
-  console.log(movies);
+
   return (
     <MoviesListHome>
       {movies.map(movie => (
         <MoviesItemHome key={movie.id}>
-          <Link to={`:${movie.id}`}>
+          <Link to={`movies/${movie.id}`}>
             <h2 style={{ fontSize: 10 }}>{movie.name || movie.title}</h2>
           </Link>
         </MoviesItemHome>
