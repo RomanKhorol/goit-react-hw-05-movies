@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 export const MoviesListHome = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   margin-right: auto;
   margin-bottom: auto;
 `;
