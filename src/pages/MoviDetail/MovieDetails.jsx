@@ -1,12 +1,14 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { BackLink } from 'components/BackLink';
+import React, { useEffect, useState, Suspense } from 'react';
+import { useRef } from 'react';
+import BackLink from '../../components/Backlink/BackLink';
 import axios from 'axios';
 
-import { MoviDetailContainer } from './MovieDetail.styled';
-export default function MovieDetails() {
+import { MoviDetailContainer, MoviScopeWrapper } from './MovieDetail.styled';
+const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function MovieDetails() {
 
   return (
     <MoviDetailContainer>
-      <BackLink to={location.state.from}>Back to products</BackLink>
+      <BackLink to={backLinkLocationRef.current}>Back to products</BackLink>
       <div>
         {movie.img && (
           <img
@@ -47,7 +49,12 @@ export default function MovieDetails() {
           />
         )}
         <h2>{movie.title}</h2>
-        {movie.voteAverage && <p>User scope:{movie.voteAverage}%</p>}
+        {movie.voteAverage && (
+          <MoviScopeWrapper>
+            <p>User scope: </p>
+            <p>{movie.voteAverage}%</p>
+          </MoviScopeWrapper>
+        )}
         <h2>Overview</h2>
         <p>{movie.overview || `There's no overveiw`}</p>
         <h2>Genres</h2>
@@ -66,7 +73,10 @@ export default function MovieDetails() {
           <Link to="reviews">Review</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </MoviDetailContainer>
   );
-}
+};
+export default MovieDetails;

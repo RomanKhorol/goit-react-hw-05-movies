@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { MoviesListHome } from './Home.slyled';
 import { MoviesItemHome } from './Home.slyled';
-export default function Home() {
+const Home = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
 
@@ -25,10 +25,11 @@ export default function Home() {
       {movies.map(({ id, name, title }) => (
         <MoviesItemHome key={id}>
           <Link to={`movies/${id}`} state={{ from: location }}>
-            <h2 style={{ fontSize: 10 }}>{name || title}</h2>
+            <h2 style={{ fontSize: 20 }}>{name || title}</h2>
           </Link>
         </MoviesItemHome>
       ))}
     </MoviesListHome>
   );
-}
+};
+export default Home;

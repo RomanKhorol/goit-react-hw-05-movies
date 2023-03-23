@@ -3,8 +3,7 @@ import { useSearchParams, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Notiflix from 'notiflix';
-
-import { MoviesListHome, MoviesItemHome } from '../Home/Home.slyled';
+import { MoviesList, MoviesItem } from './Movies.styled';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -67,15 +66,15 @@ const Movies = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <MoviesListHome>
+      <MoviesList>
         {movies.map(({ id, name, title }) => (
-          <MoviesItemHome key={id}>
+          <MoviesItem key={id}>
             <Link to={`${id}`} state={{ from: location }}>
               <h2 style={{ fontSize: 10 }}>{name || title}</h2>
             </Link>
-          </MoviesItemHome>
+          </MoviesItem>
         ))}
-      </MoviesListHome>
+      </MoviesList>
     </div>
   );
 };

@@ -11,5 +11,4 @@ export const MoviesItemHome = styled.li`
   flex-direction: column;
   align-items: flex-start;
   height: 20px;
-  font-size: 25px;
 `;

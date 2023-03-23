@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Cast() {
+const Cast = () => {
   const [movieInfo, setMovieInfo] = useState([]);
 
   const { movieId } = useParams();
@@ -48,4 +48,5 @@ https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=bac142108808b211e4
       ))}
     </div>
   );
-}
+};
+export default Cast;
