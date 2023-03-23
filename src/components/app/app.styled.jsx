@@ -17,6 +17,5 @@ export const LinkNav = styled(NavLink)`
   }
 `;
 export const Container = styled.div`
-  padding-left: 20px;
-  padding-top: 20px;
+  padding: 20px;
 `;
