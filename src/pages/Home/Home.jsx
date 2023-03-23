@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { MoviesListHome } from './Home.slyled';
 import { MoviesItemHome } from './Home.slyled';
 export default function Home() {
   const [movies, setMovies] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     async function getMoviesArray() {
@@ -21,10 +22,10 @@ export default function Home() {
 
   return (
     <MoviesListHome>
-      {movies.map(movie => (
-        <MoviesItemHome key={movie.id}>
-          <Link to={`movies/${movie.id}`}>
-            <h2 style={{ fontSize: 10 }}>{movie.name || movie.title}</h2>
+      {movies.map(({ id, name, title }) => (
+        <MoviesItemHome key={id}>
+          <Link to={`movies/${id}`} state={{ from: location }}>
+            <h2 style={{ fontSize: 10 }}>{name || title}</h2>
           </Link>
         </MoviesItemHome>
       ))}

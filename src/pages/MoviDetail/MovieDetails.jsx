@@ -1,11 +1,12 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { BackLink } from 'components/BackLink';
 import axios from 'axios';
+
 import { MoviDetailContainer } from './MovieDetail.styled';
 export default function MovieDetails() {
-  const [movie, setMovie] = useState('');
-  const [genres, setGenres] = useState('');
-
+  const [movie, setMovie] = useState({});
+  const location = useLocation();
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -14,30 +15,47 @@ export default function MovieDetails() {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieId}?api_key=bac142108808b211e4312acd17e6d409&language=en-US`
         );
-        setMovie(response.data);
-
-        const genreses = movie.genres;
-        console.log(genreses);
-        const allGenres = genreses.map(genre => genre.name).join();
-        setGenres(allGenres);
+        onResolve(response.data);
       } catch (error) {}
     }
     getMoviesById();
   }, [movieId]);
 
-  const scope = Math.round(movie.popularity);
+  const onResolve = responce => {
+    const dataMovie = {
+      img: responce.poster_path,
+      title: responce.original_title,
 
-  const url = movie.poster_path;
+      overview: responce.overview,
+      genres: responce.genres
+        .map(item => item.name + ', ')
+        .join(' ')
+        .slice(0, -2),
+      voteAverage: (responce.vote_average * 10).toFixed(0),
+    };
+    setMovie(dataMovie);
+  };
+
   return (
     <MoviDetailContainer>
+      <BackLink to={location.state.from}>Back to products</BackLink>
       <div>
-        <img src={`https://image.tmdb.org/t/p/w200${url}`} alt="Pictures" />
-        <h2>{movie.original_title}</h2>
-        <p>User scope:{scope}%</p>
+        {movie.img && (
+          <img
+            src={`https://image.tmdb.org/t/p/w200` + movie.img}
+            alt="Pictures"
+          />
+        )}
+        <h2>{movie.title}</h2>
+        {movie.voteAverage && <p>User scope:{movie.voteAverage}%</p>}
         <h2>Overview</h2>
         <p>{movie.overview || `There's no overveiw`}</p>
         <h2>Genres</h2>
-        <p>{genres}</p>
+        {movie.genres ? (
+          <p>{movie.genres}</p>
+        ) : (
+          `There not information about genres`
+        )}
       </div>
       <h3>Additional information</h3>
       <ul>
