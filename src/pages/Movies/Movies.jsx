@@ -10,7 +10,7 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
   const location = useLocation();
-  // const backLinkHref = location.state?.from ?? '/movies';
+
   useEffect(() => {
     if (query === '') return;
 
@@ -70,7 +70,7 @@ const Movies = () => {
         {movies.map(({ id, name, title }) => (
           <MoviesItem key={id}>
             <Link to={`${id}`} state={{ from: location }}>
-              <h2 style={{ fontSize: 10 }}>{name || title}</h2>
+              <h2 style={{ fontSize: '20px' }}>{name || title}</h2>
             </Link>
           </MoviesItem>
         ))}

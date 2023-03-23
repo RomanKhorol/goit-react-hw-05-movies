@@ -4,7 +4,11 @@ import { useRef } from 'react';
 import BackLink from '../../components/Backlink/BackLink';
 import axios from 'axios';
 
-import { MoviDetailContainer, MoviScopeWrapper } from './MovieDetail.styled';
+import {
+  MoviDetailContainer,
+  MoviScopeWrapper,
+  MoviDetaiWrapper,
+} from './MovieDetail.styled';
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const location = useLocation();
@@ -41,29 +45,33 @@ const MovieDetails = () => {
   return (
     <MoviDetailContainer>
       <BackLink to={backLinkLocationRef.current}>Back to products</BackLink>
-      <div>
-        {movie.img && (
-          <img
-            src={`https://image.tmdb.org/t/p/w200` + movie.img}
-            alt="Pictures"
-          />
-        )}
-        <h2>{movie.title}</h2>
-        {movie.voteAverage && (
-          <MoviScopeWrapper>
-            <p>User scope: </p>
-            <p>{movie.voteAverage}%</p>
-          </MoviScopeWrapper>
-        )}
-        <h2>Overview</h2>
-        <p>{movie.overview || `There's no overveiw`}</p>
-        <h2>Genres</h2>
-        {movie.genres ? (
-          <p>{movie.genres}</p>
-        ) : (
-          `There not information about genres`
-        )}
-      </div>
+      <MoviDetaiWrapper>
+        <div>
+          {movie.img && (
+            <img
+              src={`https://image.tmdb.org/t/p/w200` + movie.img}
+              alt="Pictures"
+            />
+          )}
+        </div>
+        <div>
+          <h2 style={{ marginTop: '0px' }}>{movie.title}</h2>
+          {movie.voteAverage && (
+            <MoviScopeWrapper>
+              <p>User scope: </p>
+              <p>{movie.voteAverage}%</p>
+            </MoviScopeWrapper>
+          )}
+          <h2>Overview</h2>
+          <p>{movie.overview || `There's no overveiw`}</p>
+          <h2>Genres</h2>
+          {movie.genres ? (
+            <p>{movie.genres}</p>
+          ) : (
+            `There not information about genres`
+          )}
+        </div>
+      </MoviDetaiWrapper>
       <h3>Additional information</h3>
       <ul>
         <li>
